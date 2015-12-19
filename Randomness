@@ -1,0 +1,47 @@
+pace = 0.3
+in_thread do
+  loop do
+    play 60
+    sleep pace
+    play 70
+    sleep pace
+  end
+end
+
+in_thread do
+  loop do
+    use_synth :dsaw
+    play 50
+    sleep pace
+    play rand_i(70)
+    sleep pace
+  end
+end
+
+in_thread do
+  loop do
+    use_synth :blade
+    play_pattern_timed [70,72,74],[pace]
+  end
+end
+
+in_thread do
+loop do
+with_fx :reverb do
+  random = rand_i(100)
+  if random > 75 then
+    use_synth :dull_bell
+    play random
+    sleep 0.2
+  elsif random > 50 and random < 75 then
+    use_synth :pulse
+    play random
+    sleep 0.2
+  else
+    use_synth :piano
+    play random
+    sleep 0.2
+  end
+end
+end
+end
